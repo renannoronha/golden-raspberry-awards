@@ -14,4 +14,6 @@ MarkupSafe==3.0.2
 pytz==2025.2
 referencing==0.36.2
 rpds-py==0.24.0
+SQLAlchemy==2.0.40
+typing_extensions==4.13.2
 Werkzeug==3.1.3
