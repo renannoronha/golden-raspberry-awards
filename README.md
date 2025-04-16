@@ -6,9 +6,9 @@ API RESTful que lê um dataset CSV de filmes de indicados e vencedores da Golden
 ## Setup da API
 Para rodar a API localmente é preciso primeiro instalar os pacotes,
 ```shell
-$ python3 -m venv .venv
-$ source .venv/bin/activate
-$ pip install -r requirements.txt
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
 ```
 
 e configurar as variáveis de ambiente no arquivo index.py.
