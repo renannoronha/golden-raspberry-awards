@@ -1,4 +1,5 @@
 from sqlalchemy import create_engine
+from sqlalchemy.pool import StaticPool
 
 from os import environ
 
@@ -17,7 +18,7 @@ class SingletonMeta(type):
 class DB(metaclass=SingletonMeta):
 
     def __init__(self):
-        self.engine = create_engine(environ.get("DATABASE_URL"))
+        self.engine = create_engine(environ.get("DATABASE_URL"), connect_args={"check_same_thread": False}, poolclass=StaticPool, echo=False)
 
     def connect(self):
         """
