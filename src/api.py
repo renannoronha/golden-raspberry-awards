@@ -1,11 +1,10 @@
 from flask import Flask
 from flask_cors import CORS
 from flask_restx import Api
-from os import environ
 
-# from src.resource.branch import branch_ns
+from src.resource.awards import awards_ns
 
-# Build database
+from src.utils.set_database import SetDatabase
 
 # Declare APP
 app = Flask(__name__)
@@ -23,4 +22,7 @@ app.config["CORS_HEADERS"] = "Content-Type"
 CORS(app, resources={r"/*": {"origins": "*"}})
 
 # Namespaces
-# api.add_namespace(branch_ns)
+api.add_namespace(awards_ns)
+
+# Build database
+SetDatabase().set_database()
