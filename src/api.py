@@ -9,13 +9,7 @@ from src.utils.set_database import SetDatabase
 # Declare APP
 app = Flask(__name__)
 
-api = Api(
-    app,
-    doc="/doc/",
-    version="1.0",
-    title="Golden Raspberry Awards",
-    description="Documentação para consulta da API do Golden Raspberry Awards",
-)
+api = Api(app, version="1.0", title="Golden Raspberry Awards", description="Documentação para consulta da API do Golden Raspberry Awards")
 
 cors = CORS(app)
 app.config["CORS_HEADERS"] = "Content-Type"
