@@ -29,3 +29,10 @@ Para rodar os testes utilize o comando
 ```shell
 $ pytest -vv
 ```
+
+## Endpoints
+Para testar os endpoints da API basta fazer uma requisição HTTP para a URL
+```http
+GET http://127.0.0.1:5000/awards/longest-fastest-consecutive-awards
+```
+ou utilizar a interface do Swagger http://127.0.0.1:5000/
