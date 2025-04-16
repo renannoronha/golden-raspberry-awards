@@ -49,7 +49,7 @@ class DB(metaclass=SingletonMeta):
             result = {}
             for i, field in enumerate(db_fields):
                 value = db_object[i]
-                if '{"' == value[:2]:
+                if '{"' == value[:2] or '[{' == value[:2]:
                     try:
                         value = json.loads(value)
                     except:

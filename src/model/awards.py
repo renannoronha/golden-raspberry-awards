@@ -14,11 +14,13 @@ class AwardsModel():
                 ORDER BY year
             ), max AS (
                 SELECT
-                    JSON_OBJECT(
-                        'producer', producers,
-                        'interval', interval,
-                        'previousWin', year,
-                        'followingWin', next_win
+                    JSON_GROUP_ARRAY(
+                        JSON_OBJECT(
+                            'producer', producers,
+                            'interval', interval,
+                            'previousWin', year,
+                            'followingWin', next_win
+                        )
                     ) AS max
                 FROM
                     difference
@@ -26,11 +28,13 @@ class AwardsModel():
                     interval=(SELECT MAX(interval) FROM difference)
             ), min AS (
                 SELECT
-                    JSON_OBJECT(
-                        'producer', producers,
-                        'interval', interval,
-                        'previousWin', year,
-                        'followingWin', next_win
+                    JSON_GROUP_ARRAY(
+                        JSON_OBJECT(
+                            'producer', producers,
+                            'interval', interval,
+                            'previousWin', year,
+                            'followingWin', next_win
+                        )
                     ) AS min
                 FROM
                     difference
