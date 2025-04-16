@@ -21,7 +21,7 @@ environ["CSV_DELIMITER"] = ";" # Delimitador do dataset csv
 ## Rode localmente
 Para rodar o servidor utilize o comando
 ```shell
-$ python index.py
+$ python3 index.py
 ```
 
 ## Testes
