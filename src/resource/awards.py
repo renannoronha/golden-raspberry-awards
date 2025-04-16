@@ -21,4 +21,4 @@ class ListRegionResource(Resource):
         except Exception as e:
             print(f"Error: {e}")
             print(traceback.format_exc())
-            return 400, {}
+            return {}, 400
