@@ -17,12 +17,12 @@ class AwardsCore:
             longest_consecutive_awards = cursor_result.fetchall()
             response["max"] = []
             for obj in longest_consecutive_awards:
-                response["max"].append(dict(producers=obj[0], year=obj[1]))
+                response["max"].append(dict(producer=obj[0], interval=obj[1], previousWin=obj[2], followingWin=obj[3]))
 
             cursor_result = conn.execute(text(self.model.get_fastest_consecutive_awards()))
             fastest_consecutive_awards = cursor_result.fetchall()
             response["min"] = []
             for obj in fastest_consecutive_awards:
-                response["min"].append(dict(producers=obj[0], year=obj[1]))
+                response["min"].append(dict(producer=obj[0], interval=obj[1], previousWin=obj[2], followingWin=obj[3]))
 
         return response, 200
