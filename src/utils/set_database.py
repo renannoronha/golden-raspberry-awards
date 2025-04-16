@@ -1,5 +1,3 @@
-from sqlalchemy import text
-
 from os import environ
 
 
@@ -19,48 +17,45 @@ class SetDatabase:
         # Initialize the database with the URL
         db = DB()
 
-        with db.engine.begin() as conn:
-            conn.execute(text("""
-                CREATE TABLE IF NOT EXISTS awards (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    year INTEGER NOT NULL,
-                    title TEXT NOT NULL,
-                    studios TEXT NOT NULL,
-                    producers TEXT NOT NULL,
-                    winner TEXT NOT NULL
-                );
-            """))
-            conn.commit()
+        db.execute("""
+            CREATE TABLE IF NOT EXISTS awards (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                year INTEGER NOT NULL,
+                title TEXT NOT NULL,
+                studios TEXT NOT NULL,
+                producers TEXT NOT NULL,
+                winner TEXT NOT NULL
+            );
+        """)
+        db.commit()
 
         # Get the dataset path from environment variable
         dataset_path = environ.get("INITIAL_DATASET_PATH")
         if dataset_path is None:
             raise ValueError("INITIAL_DATASET_PATH environment variable is not set")
 
-        with db.engine.begin() as conn:
-            # Delete the previous data
-            conn.execute(text("DELETE FROM awards"))
+        # Delete the previous data
+        db.execute("DELETE FROM awards")
 
-            with open(dataset_path, "r") as file:
-                for i, line in enumerate(file):
-                    # Skip the header line
-                    if i == 0:
-                        continue
+        with open(dataset_path, "r") as file:
+            for i, line in enumerate(file):
+                # Skip the header line
+                if i == 0:
+                    continue
 
-                    # Skip empty lines
-                    if not line.strip():
-                        continue
+                # Skip empty lines
+                if not line.strip():
+                    continue
 
-                    # Split the line by the delimiter
-                    year, title, studios, producers, winner = line.strip().split(environ.get("CSV_DELIMITER", ","))
-                    payload = {"year": year, "title": title, "studios": studios, "producers": producers, "winner": winner}
-                    # print(payload)
+                # Split the line by the delimiter
+                year, title, studios, producers, winner = line.strip().split(environ.get("CSV_DELIMITER", ","))
+                payload = {"year": year, "title": title, "studios": studios, "producers": producers, "winner": winner}
 
-                    # Insert the data into the database
-                    conn.execute(text("""
-                        INSERT INTO awards (year, title, studios, producers, winner)
-                        VALUES (:year, :title, :studios, :producers, :winner);
-                    """), payload)
-            conn.commit()
+                # Insert the data into the database
+                db.execute("""
+                    INSERT INTO awards (year, title, studios, producers, winner)
+                    VALUES (:year, :title, :studios, :producers, :winner);
+                """, payload)
+        db.commit()
 
         print("Database setup complete.")
