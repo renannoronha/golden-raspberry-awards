@@ -27,7 +27,7 @@ $ python3 index.py
 ## Testes
 Para rodar os testes utilize o comando
 ```shell
-$ pytest -vv
+$ pytest
 ```
 
 ## Endpoints
